@@ -5,9 +5,8 @@ import { UserModule } from '../user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { AccessTokenStrategy } from './strategies/accessToken.strategy';
 
-
 @Module({
-  imports: [JwtModule.register({}),UserModule],
+  imports: [JwtModule.register({}), UserModule],
   controllers: [AuthController],
   providers: [AuthService, AccessTokenStrategy],
 })
