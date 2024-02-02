@@ -30,13 +30,18 @@ export class NotesService {
     return new SuccessResponseDto("Success", notes)
   }
 
-  async findOne(id: String, userId: string): Promise<CommonResponseDto> {
-    try {
-      const note = await this.noteModule.findOne({ _id: id, user: userId }).exec();
-      return new SuccessResponseDto(note)
-    } catch (error) {
-      throw new NotFoundException("Note not found");
-    }
+  async findOne(id: String, userId: string) {
+    this.noteModule.findOne({ _id: id, user: userId })
+    .exec()
+    .then(note => {
+        if (!note) {
+            throw new NotFoundException("Note not found");
+        }
+        return new SuccessResponseDto(note);
+    })
+    .catch(error => {
+        throw new NotFoundException("Note not found");
+    });
   }
 
   async update(id: String, updateNoteDto: UpdateNoteDto, userId: string): Promise<CommonResponseDto> {
