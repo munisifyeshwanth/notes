@@ -5,6 +5,8 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { AuthDto } from './dto/auth.dto';
 import * as bcrypt from 'bcrypt';
+import { CommonResponseDto, SuccessResponseDto } from '../common/dto/common-response.dto';
+
 
 @Injectable()
 export class AuthService {
@@ -12,9 +14,9 @@ export class AuthService {
     private usersService: UserService,
     private jwtService: JwtService,
     private configService: ConfigService,
-  ) {}
+  ) { }
 
-  async signUp(createUserDto: CreateUserDto): Promise<any> {
+  async signUp(createUserDto: CreateUserDto): Promise<CommonResponseDto> {
     const userExists = await this.usersService.findByUsername(
       createUserDto.username,
     );
@@ -31,19 +33,19 @@ export class AuthService {
       password: hash,
     });
     const tokens = await this.getTokens(newUser._id, newUser.name);
-    await this.updateRefreshToken(newUser._id, tokens.refreshToken);  
-    return tokens;
+    await this.updateRefreshToken(newUser._id, tokens.refreshToken);
+    return new SuccessResponseDto(tokens);
   }
 
-  async signIn(data: AuthDto) {
+  async signIn(data: AuthDto): Promise<CommonResponseDto> {
     const user = await this.usersService.findByUsername(data.username);
     if (!user) throw new BadRequestException('User does not exist');
-      const passwordMatches = await bcrypt.compare(data.password,user.password);
+    const passwordMatches = await bcrypt.compare(data.password, user.password);
     if (!passwordMatches)
       throw new BadRequestException('Password is incorrect');
     const tokens = await this.getTokens(user._id, user.name);
     await this.updateRefreshToken(user._id, tokens.refreshToken);
-    return tokens;
+    return new SuccessResponseDto(tokens);
   }
 
   async logout(userId: string) {
@@ -59,7 +61,7 @@ export class AuthService {
   }
 
   async getTokens(userId: string, username: string) {
-   const [accessToken, refreshToken] = await Promise.all([
+    const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
         {
           sub: userId,
