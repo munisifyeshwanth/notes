@@ -27,7 +27,7 @@ export class NotesService {
 
   async findAll(userId: string): Promise<CommonResponseDto> {
     const notes = await this.noteModule.find({ user: userId }).exec()
-    return new SuccessResponseDto("Success", notes)
+    return new SuccessResponseDto(notes)
   }
 
   async findOne(id: String, userId: string) {

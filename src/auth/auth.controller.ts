@@ -6,7 +6,7 @@ import { AuthDto } from './dto/auth.dto';
 import { AccessTokenGuard } from 'src/common/gaurds/accessToken.guard';
 
 
-@Controller('auth')
+@Controller('v1/auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
