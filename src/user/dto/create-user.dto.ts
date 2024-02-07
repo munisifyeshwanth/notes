@@ -23,4 +23,6 @@ export class CreateUserDto {
   password: string;
 
   refreshToken: string;
+
+  imagePath: string
 }

@@ -15,7 +15,7 @@ import { UpdateNoteDto } from './dto/update-note.dto';
 import { AccessTokenGuard } from 'src/common/gaurds/accessToken.guard';
 import { Request } from 'express';
 
-@Controller('v1/notes')
+@Controller('notes')
 export class NotesController {
   constructor(private readonly notesService: NotesService) { }
 
