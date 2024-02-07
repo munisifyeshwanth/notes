@@ -18,10 +18,12 @@ import { FileModule } from './file/file.module';
     ),
     UserModule,
     AuthModule,
-    ThrottlerModule.forRoot([{
-      ttl: 60000,
-      limit: 10,
-    }]),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 10,
+      },
+    ]),
     FileModule,
   ],
   controllers: [AppController],

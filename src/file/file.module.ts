@@ -6,11 +6,11 @@ import { UserModule } from 'src/user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { File, FileSchema } from './entities/file.entity';
 @Module({
-  imports :[
+  imports: [
     UserModule,
     MongooseModule.forFeature([{ name: File.name, schema: FileSchema }]),
     MulterModule.register({
-      dest :'./uploads'
+      dest: './uploads',
     }),
   ],
   controllers: [FileController],

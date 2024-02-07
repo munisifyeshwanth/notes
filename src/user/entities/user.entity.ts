@@ -18,10 +18,8 @@ export class User {
   refreshToken: string;
 
   @Prop()
-  imagePath:string
+  imagePath: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
-UserSchema.set('timestamps',true)
-
-
+UserSchema.set('timestamps', true);

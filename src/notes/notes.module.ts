@@ -11,7 +11,7 @@ import { UserModule } from 'src/user/user.module';
     MongooseModule.forFeature([{ name: Note.name, schema: NoteSchema }]),
   ],
   controllers: [NotesController],
-  providers: [NotesService,],
-  exports: [NotesService]
+  providers: [NotesService],
+  exports: [NotesService],
 })
-export class NotesModule { }
+export class NotesModule {}

@@ -5,8 +5,10 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { AuthDto } from './dto/auth.dto';
 import * as bcrypt from 'bcrypt';
-import { CommonResponseDto, SuccessResponseDto } from '../common/dto/common-response.dto';
-
+import {
+  CommonResponseDto,
+  SuccessResponseDto,
+} from '../common/dto/common-response.dto';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +16,7 @@ export class AuthService {
     private usersService: UserService,
     private jwtService: JwtService,
     private configService: ConfigService,
-  ) { }
+  ) {}
 
   async signUp(createUserDto: CreateUserDto): Promise<CommonResponseDto> {
     const userExists = await this.usersService.findByUsername(
@@ -25,9 +27,9 @@ export class AuthService {
     }
     const saltRounds = 10;
     const salt = await bcrypt.genSalt(saltRounds);
-    console.log(salt)
+    console.log(salt);
     const hash = await bcrypt.hash(createUserDto.password, salt);
-    console.log(hash)
+    console.log(hash);
     const newUser = await this.usersService.create({
       ...createUserDto,
       password: hash,

@@ -24,5 +24,5 @@ export class CreateUserDto {
 
   refreshToken: string;
 
-  imagePath: string
+  imagePath: string;
 }

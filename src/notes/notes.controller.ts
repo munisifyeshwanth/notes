@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
-  Req
+  Req,
 } from '@nestjs/common';
 import { NotesService } from './notes.service';
 import { CreateNoteDto } from './dto/create-note.dto';
@@ -17,7 +17,7 @@ import { Request } from 'express';
 
 @Controller('notes')
 export class NotesController {
-  constructor(private readonly notesService: NotesService) { }
+  constructor(private readonly notesService: NotesService) {}
 
   @UseGuards(AccessTokenGuard)
   @Post()
@@ -38,8 +38,12 @@ export class NotesController {
   }
 
   @UseGuards(AccessTokenGuard)
-  @Patch(':id',)
-  update(@Param('id',) id: string, @Body() updateNoteDto: UpdateNoteDto, @Req() req: Request) {
+  @Patch(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateNoteDto: UpdateNoteDto,
+    @Req() req: Request,
+  ) {
     return this.notesService.update(id, updateNoteDto, req.user['sub']);
   }
 
